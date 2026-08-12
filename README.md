@@ -13,3 +13,4 @@ Install Redux
 install react redux/toolkit
 create a configure store
 Add redux devtools in store
+Should not access othe rzroutes before login 
