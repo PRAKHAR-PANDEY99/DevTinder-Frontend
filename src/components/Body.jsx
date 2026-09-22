@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 const Body = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const userData = useSelector((state) => state.user);
+  const userData = useSelector((store ) => store.user);
 const fetchUser = async () => {
   try {
     const res = await axios.get(BASE_URL + "/profile/view", {
@@ -21,16 +21,16 @@ const fetchUser = async () => {
     if (err.response && err.response.status === 401) {
       console.log("User is not logged in.");
       navigate("/login");   
-    } else {
+    } else { 
       console.error("Error fetching user:", err);
     }
   }
 };
-  useEffect(() => {
+ useEffect(() => {
+  if(!userData || !userData.id) {
     fetchUser();
-    console.log("User data in Body.jsx:");
+  }
   }, []);
-
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />

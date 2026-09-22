@@ -8,22 +8,53 @@ import { BASE_URL } from "../utils/constants";
 const Login = () => {
   const [emailID, setEmailID] = useState("harsh@gmail.com");
   const [password, setPassword] = useState("Harsh@123");
+  const [error, setError] = useState("");   //  error state
   const dispatch = useDispatch();
   const navigate = useNavigate(); 
 
   const handleLogin = async (e) => {
     e.preventDefault();
+
+    // Validation checks
+    if (!emailID || !password) {
+      setError("Email and password are required.");
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(emailID)) {
+      setError("Please enter a valid email address.");
+      return;
+    }
+
+    if (password.length < 6) {
+      setError("Password must be at least 6 characters long.");
+      return;
+    }
+
     console.log("Login clicked");
     try {
       const res = await axios.post(
-         `${BASE_URL}/login`,
+        `${BASE_URL}/login`,
         { emailID, password },
         { withCredentials: true }
       );
 
       dispatch(addUser(res.data.user));
-      navigate("/");
+      navigate("/feed");
     } catch (err) {
+      //  Different messages based on backend response
+      if (err.response) {
+        if (err.response.status === 401) {
+          setError("Incorrect password. Please try again.");
+        } else if (err.response.status === 404) {
+          setError("User not found. Please sign up first.");
+        } else {
+          setError("Login failed. Please check your credentials.");
+        }
+      } else {
+        setError("Server error. Please try again later.");
+      }
       console.error(err);
     }
   };
@@ -33,7 +64,8 @@ const Login = () => {
       <div className="card w-96 bg-base-100 shadow-xl">
         <div className="card-body">
           <h2 className="text-3xl font-bold text-center">Login</h2>
-
+          {/*  Show error message */}
+          {error && <p className="text-red-500 text-center mb-2">{error}</p>}
           <form onSubmit={handleLogin}>
             <div className="mt-4">
               <label className="label">
@@ -47,7 +79,6 @@ const Login = () => {
                 className="input input-bordered w-full"
               />
             </div>
-
             <div className="mt-4">
               <label className="label">
                 <span className="label-text">Password</span>

@@ -13,4 +13,7 @@ Install Redux
 install react redux/toolkit
 create a configure store
 Add redux devtools in store
-Should not access othe rzroutes before login 
+Should not access other routes before login 
+Logout Feature
+Get the feed and add the feed in th storefront
+build the user card on feed
