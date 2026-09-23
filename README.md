@@ -17,3 +17,6 @@ Should not access other routes before login
 Logout Feature
 Get the feed and add the feed in th storefront
 build the user card on feed
+Edit profile feature 
+Show toast when edit data
+

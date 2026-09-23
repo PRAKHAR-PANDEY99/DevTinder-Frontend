@@ -17,12 +17,10 @@ const UserCard = ({ user }) => {
           className="w-full h-96 object-cover"
         />
       </figure>
-
       <div className="card-body">
         <h2 className="card-title">
           {firstName} {lastName}
         </h2>
-
         <p>
           {age} · {gender}
         </p>
