@@ -35,7 +35,7 @@ const EditProfile = ({ user }) => {
       );
       dispatch(addUser(res?.data?.data));
 
-      // ✅ Show success alert
+      //  Show success alert
       setSuccess("Profile updated successfully!");
       setError("");
     } catch (err) {
@@ -44,7 +44,7 @@ const EditProfile = ({ user }) => {
     }
   };
 
-  // ✅ Auto-dismiss alerts after 3 seconds
+  //  Auto-dismiss alerts after 3 seconds
   useEffect(() => {
     if (success) {
       const timer = setTimeout(() => setSuccess(""), 3000);
