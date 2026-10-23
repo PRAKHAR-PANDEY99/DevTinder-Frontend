@@ -28,6 +28,7 @@ const Feed = () => {
   }, []);
 
   return (
+    
     feed &&
     feed.length > 0 && (
       <div className="flex flex-wrap justify-center my-10 gap-6">
